@@ -1,0 +1,27 @@
+name: tarea docker
+on: [push] 
+
+jobs:
+  test-mysql:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: 123password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Ejecutar comando dentro del contenedor
+        run: |
+  
